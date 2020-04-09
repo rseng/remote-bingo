@@ -1,0 +1,328 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300);
+@import url(https://fonts.googleapis.com/css?family=Pacifico);
+
+body {
+  background: #9a2a2a;
+  color: #333;
+  font-family: Pacifico, cursive;
+}
+
+.notifyjs-corner {
+  font-family: Lato, sans-serif;
+}
+
+.human-menu-item {
+  cursor: pointer;
+}
+
+.top-right {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+/* These colors also look nice
+bisque
+lightcoral
+lightpink
+mistyrose*/
+
+.container {
+  border-radius:5px;
+  display: block;
+  width: 40%;
+  margin: 0px auto;
+  margin-top: 5%;
+  background: #fff;
+  padding: 20px;
+  box-shadow: 10px 15px 5px rgba(0,0,0,0.4);
+}
+.page-title {
+    font-weight:normal;
+    text-align: left;
+    color: white;
+    font-size: 60px;
+    padding: 20px 10px 0px 30px;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+li * {
+  float: left;
+}
+li, h3 {
+  clear:both;
+  list-style:none;
+}
+input, button {
+  outline: none;
+}
+button {
+  background: none;
+  border: 0px;
+  color: #888;
+  font-size: 15px;
+  width: 60px;
+  margin: 10px 0 0;
+  font-family: Lato, sans-serif;
+  cursor: pointer;
+}
+button:hover {
+  color: #333;
+}
+
+h3{
+  font-size: 25px;
+  padding: 30px 0 10px;
+  margin: 0;
+  display: block;
+  margin: 0 0 20px 20px;
+  font-family: 'Open Sans Condensed', sans-serif;
+
+}
+input[type="text"] {
+  margin: 0;
+  font-size: 18px;
+  line-height: 18px;
+  height: 18px;
+  padding: 10px;
+  border: none;
+  border-bottom: 2px solid #F4A460;
+  background: none;
+  color: #888;
+}
+input[type="text"]:focus {
+  color: #333;
+}
+
+input#newTask {
+  float: left;
+  width: 400px;
+}
+button:hover {
+  color:#222;
+}
+
+li {
+  overflow: hidden;
+  padding: 20px 20px;
+  border-bottom: 1px solid #ccc;
+}
+li > input[type="checkbox"] {
+  margin: 0 10px;
+  position: relative;
+  top: 15px;
+}
+li > label {
+  font-size: 18px;
+  line-height: 40px;
+  width: 237px;
+  padding: 0 0 0 11px;
+   word-wrap: break-word;
+}
+li >  input[type="text"] {
+  width: 226px;
+}
+li > .delete:hover {
+  color: #FF0000;
+}
+li > .edit:hover {
+  color: #32CD32;
+}
+#suggestions label{
+  color: red;
+  opacity: 0.4;
+}
+
+#completed-tasks label {
+  text-decoration: line-through;
+  color:#9ACD32 ;
+}
+
+ul li input[type=text] {
+  display:none;
+}
+
+ul li.editMode input[type=text] {
+  display:block;
+}
+
+ul li.editMode label {
+  display:none;
+}
+@media (max-width: 1024px){
+  .container{
+    width: 80%;
+  }
+}
+@media (max-width: 640px){
+  .container{
+    width:80%;
+    margin: 0 auto;
+    margin-top: 10%;
+  }
+  li > label {
+  font-size: 22px;
+  width: 100px;
+  }
+  li >  input[type="text"] {
+    width: 150px;
+  }
+   input#newTask{
+    width: 225px;
+  }
+}
+
+@media (max-width: 480px){
+  input#newTask{
+    width: 125px;
+  }
+}
+
+#wrapper {
+  margin: 0 auto;
+  width: 650px;
+}
+
+h1 {
+  margin-top: 10px;
+  font-family: Pacifico, cursive;
+  text-align: center;
+  color: #FFF;
+}
+
+#card {
+  position: absolute;
+  margin: 0 auto;
+  border-spacing: 10px;
+  border-collapse: separate;
+  text-align: center;
+  color: #FFF;
+}
+#card td {
+  padding: 10px;
+  height: 80px;
+  width: 80px;
+  background: #777;
+  font: 14px arial;
+  cursor: pointer;
+}
+#card td:hover {
+  -moz-box-shadow: inset 0 0 35px #BBB;
+  -webkit-box-shadow: inset 0 0 35px #BBB;
+  box-shadow: inset 0 0 35px #BBB;
+  -moz-transition-duration: 0.25s;
+  -o-transition-duration: 0.25s;
+  -webkit-transition-duration: 0.25s;
+  transition-duration: 0.25s;
+}
+#card .dabbedRed {
+  background: #FF0000;
+}
+#card .dabbedBlue {
+  background: #0000FF;
+}
+#card .dabbedYellow {
+  background: #E6E607;
+}
+#card .dabbedGreen {
+  background: #008000;
+}
+#card .dabbedPurple {
+  background: #800080;
+}
+#card .dabbedOrange {
+  background: #FFA500;
+}
+#card .dabbedBlack {
+  background: #000000;
+}
+
+#menu {
+  position: relative;
+  left: 560px;
+  width: 100px;
+  height: 540px;
+  margin-top: 10px;
+}
+#menu #scoreboard {
+  height: 220px;
+  width: 100px;
+  background: rgba(34, 34, 34, 0.6);
+  font: 12px roboto;
+  text-align: center;
+  color: #FFF;
+}
+#menu #scoreboard .title {
+  padding-top: 9px;
+  letter-spacing: 1px;
+}
+#menu #scoreboard .score {
+  font-size: 20px;
+  margin: 0px;
+}
+#menu .cardFunction {
+  margin-top: 10px;
+  height: 45px;
+  width: 100px;
+  background: rgba(34, 34, 34, 0.6);
+  font: 12px/45px roboto;
+  color: #FFF;
+}
+#menu .cardFunction:hover {
+  background: #222222;
+  -moz-transition-duration: 0.25s;
+  -o-transition-duration: 0.25s;
+  -webkit-transition-duration: 0.25s;
+  transition-duration: 0.25s;
+}
+#menu #palette {
+  margin-top: 10px;
+  height: 220px;
+  background: rgba(34, 34, 34, 0.6);
+  font: 12px/28px roboto;
+  text-align: center;
+  color: white;
+}
+
+#menu #palette .dabSelect {
+  float: left;
+  border-radius: 24px;
+  margin: 0 0 4px 4px;
+  height: 44px;
+  width: 44px;
+  vertical-align: top;
+}
+#menu #palette .dabSelect:hover {
+  border: 3px solid #FFF;
+}
+#menu #palette #dabRed {
+  background: #FF0000;
+}
+#menu #palette #dabBlue {
+  background: #0000FF;
+}
+#menu #palette #dabYellow {
+  background: #E6E607;
+}
+#menu #palette #dabGreen {
+  background: #008000;
+}
+#menu #palette #dabPurple {
+  background: #800080;
+}
+#menu #palette #dabOrange {
+  background: #FFA500;
+}
+#menu #palette #dabBlack {
+  background: #000000;
+}
+#menu #palette #dabRandom {
+  background: #FFFFFF;
+  font: 20px roboto;
+}
+#menu #palette .dabActive {
+  border: 3px solid #AAA;
+}
+
