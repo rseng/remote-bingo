@@ -78,6 +78,9 @@ class Bingo {
     // Choose an item (expects to be bound on click to element)
     selectItemEvent(event) {
 
+        // STOPPED HERE - client state isnt being saved with selected items,
+        // possibly need to save / load from storage or just use selected
+        // class as indicator
         var name = event.target.getAttribute('data-name')
         var boxid = event.target.getAttribute('id')
         var client = event.data.client
@@ -88,7 +91,7 @@ class Bingo {
         if ($(event.target).hasClass(client.selectedClass)) {
             $(event.target).removeClass(client.selectedClass);
             $(event.target).attr("style", "");
-            items.selected.splice(index, 1);
+            client.items.selected.splice(index, 1);
 
         // If unselected, we want to select it
         } else {
@@ -134,8 +137,6 @@ class Bingo {
             if (this.hasStorage == true) {
                 this.storageSave();
             }
-
-            console.log(this.items);
             this.update();
 
         }.bind(this));
@@ -160,7 +161,6 @@ class Bingo {
 
     // Clear card of color
     clear(event) {
-        console.log("CLEAR")
         var client = event.data.client
         $("." + client.selectedClass).attr("style", "");
         $("." + client.selectedClass).removeClass(client.selectedClass);
@@ -225,23 +225,16 @@ class Bingo {
 
             // Bind a change event to each added item
             $("." + this.itemClass).on('click', {client: this}, this.selectItemEvent);
-            //STOPPED HERE - figure out how checking / scoring works to update row/col scores
+            this.bingoCheck()
         }
 
         console.log(this.items.board);
 
         // Add items to board
-        for (i = 0; i < items_needed; i++ ) {
+        for (i = 0; i < items_needed; i++) {
             var squareName = "Box" + i;
             $('#cell'+i).html(this.items.board[i]).attr('title', this.items.board[i]);
         }
-
-        // Update done items
-        //$(this.doneId).empty();
-        //for(var i = 0; i<this.items.done.length; i++){
-        //    var item = this.items.done[i]
-        //    $(this.doneId).append("<li class='human-menu-item' data-name='" + item + "'>" + item + "</li>")
-        //}
     }
 
     // Storage save methods
@@ -311,9 +304,15 @@ class Bingo {
 
             // Generate the row index
             var rowArray = Array()
-            for (var idx=i; idx<this.dim; idx++){
+            var start = i;
+            for (var idx=i; idx<(i+this.dim); idx++){
                 rowArray.push("cell"+idx)
             }
+
+            console.log("ROW ARRAY")
+            console.log(rowArray)
+            console.log("SELECTED")
+            console.log(this.items.selected)
 
             // If all of a row's cells are selected (and if row is not added) add it
             if (this.containsAll(rowArray, this.items.selected)) {
@@ -343,7 +342,6 @@ class Bingo {
                 colArray.push("cell"+(idx*(count * this.dim)))
                 count+=1
             }
-            console.log(colArray)
 
            // If all of a column's cells are selected, and the column isn't already in the bingo array, add it
            if (this.containsAll(colArray, this.items.selected)) {
