@@ -12,46 +12,31 @@ class Bingo {
         bingoDiag: Array(),
     };
 
-    // The constructor is called to create local storage
-    constructor(dim, cardId, selectedColor, selectedClass, itemClass) {
+    // The constructor is called when we create a Bingo object
+    constructor(dim, cardId, selectedColor, selectedClass, itemClass, selectId) {
         
         // Dimension is the width and height (square)
         this.dim = dim || 5
 
         // Store cache (arrays of indices of diagonals)
         this.setDiagonals()
+ 
+        // Store filenames that can be loaded here
+        this.bingoLists = Array()
 
         // The div ids for suggestions and seen items
         this.cardId = cardId || "#card"
+        this.selectId = selectId || "#selectList"
         this.selectedColor = selectedColor || "#FF0000"
         this.selectedClass = selectedClass || "selected"
         this.itemClass = itemClass || "remote-bingo-item"
         this.newCardButton = "#newCard"
         this.cleanCardButton = "#cleanCard"
 
-        // Class Variables
-        var hasStorage = (function() {
-            try {
-                localStorage.setItem("remote-bingo-test", 'test');
-                localStorage.removeItem("remote-bingo-test");
-                return true;
-            } catch (exception) {
-                return false;
-            }
-        });
-
-        this.hasStorage = hasStorage();
-
         // Tell the user the chosen parameters
         this.status()
 
-        // If we find storage, load up elements
-        if (this.hasStorage == true) {
-            console.log("HAS STORAGE")
-            //this.storageLoad();
-        }
-
-        // Event binding for buttons
+        // Event binding for buttons, setup of color picker
         $(this.newCardButton).on("click", {client: this}, this.reset);
         $(this.cleanCardButton).on("click", {client: this}, this.clear);
      
@@ -60,7 +45,6 @@ class Bingo {
     // Print a status for the user
     status() {
 
-        console.log("hasStorage: " + this.hasStorage)
         console.log("itemClass: " + this.itemClass)
         console.log("cardId: " + this.cardId)
         console.log("selectedColor: " + this.selectedColor)
@@ -78,9 +62,6 @@ class Bingo {
     // Choose an item (expects to be bound on click to element)
     selectItemEvent(event) {
 
-        // STOPPED HERE - client state isnt being saved with selected items,
-        // possibly need to save / load from storage or just use selected
-        // class as indicator
         var name = event.target.getAttribute('data-name')
         var boxid = event.target.getAttribute('id')
         var client = event.data.client
@@ -99,15 +80,37 @@ class Bingo {
             $(event.target).addClass(client.selectedClass);
             client.items.selected.push(name)
         }
-        // client.storageSave(items)
         client.bingoCheck()
     }
+
+    // STOPPED HERE - need to update the client from the event and save state
+    // Reload the board
+    //changeBoardEvent(event) {
+    //    var filename = $(event.target).children("option:selected").val();
+    //    console.log(filename)
+    //    var client = event.data.client
+    //    client.items.all = Array()
+    //    client.load_csv(filename)
+    //    console.log(client.items.all)
+    //    client.reset(event, client.items.all)
+    //}
+
+    // Add a new bingo list to options
+    //add_bingo_list(filename) {
+    //    this.bingoLists.push(filename)
+    //    //this.drawSelect()
+    //}
 
     // Load suggestions into the csv
     load_csv(filename) {
 
         filename = filename || "remote-bingo.csv";
         this.filename = filename
+
+        // Add to filename options if not present
+        if ($.inArray(filename, this.bingoLists) == -1) {
+            this.bingoLists.push(filename)
+        }
 
         var promise = new Promise(function(resolve, reject) {
 
@@ -132,20 +135,16 @@ class Bingo {
             for(var i = 0; i < additions.length; i++){
                 this.addItem(additions[i]);    
             }
-
-            // Finish with save to localStorage
-            if (this.hasStorage == true) {
-                this.storageSave();
-            }
             this.update();
 
         }.bind(this));
     }
 
     // Reset Bingo and provide new board
-    reset(event) {
+    reset(event, items) {
 
         var client = event.data.client
+        var items = items || client.items.all
 
         $(client.cardId).empty();
         client.items.board = Array()
@@ -155,8 +154,16 @@ class Bingo {
         client.items.bingoRow = Array()
         client.items.bingoCol = Array()
         client.items.bingoDiag = Array()
-        client.items.all = client.shuffle(client.items.all)
+        client.items.all = client.shuffle(items)
+        client.resetCounters()
         client.update()
+
+    }
+
+    resetCounters() {
+        $('#scoreRow').html(0);
+        $('#scoreCol').html(0);
+        $('#scoreDiag').html(0);
     }
 
     // Clear card of color
@@ -165,6 +172,7 @@ class Bingo {
         $("." + client.selectedClass).attr("style", "");
         $("." + client.selectedClass).removeClass(client.selectedClass);
         client.items.selected = Array();
+        client.resetCounters()
     }
 
     // Shuffle items (used on new init or reset)
@@ -172,6 +180,38 @@ class Bingo {
         for (var j, x, i = v.length; i; j = parseInt(Math.random() * i, 10), x = v[--i], v[i] = v[j], v[j] = x);
         return v;
     }
+
+    // Draw the original board based on the dimension
+    drawBoard() {
+        var content = ""
+        var count = 0
+        for (var row = 0; row < this.dim; row++) {
+            content += "<tr>\n"                
+            for (var col = 0; col < this.dim; col++) {
+                content += '<td id="cell' + count + '" data-name="cell' + count + '" class="' + this.itemClass + '"></td>\n'
+                count += 1
+            } 
+            content += "</tr>\n"  
+        }
+        $(this.cardId).html(content)
+
+        // Bind a change event to each added item
+        $("." + this.itemClass).on('click', {client: this}, this.selectItemEvent);
+
+    }
+
+    drawSelect() {
+        $(this.selectId).html("")
+        var content = "<select><option>---</option>\n"
+        for (var i = 0; i < this.bingoLists.length; i++) {
+            content += "<option value='" + this.bingoLists[i] + "'>" + this.basename(this.bingoLists[i]) + "</option>\n" 
+        }
+        content += "</select>\n"  
+        $(this.selectId).html(content)
+        $(this.selectId).on('change', {client: this}, this.changeBoardEvent);
+
+    }
+
 
     // Update methods
     update() {
@@ -205,28 +245,12 @@ class Bingo {
 
             // Clear the table, prepare to add rows and colums
             $(this.cardID).html("")
-            $('#scoreRow').html(0);
-            $('#scoreCol').html(0);
-            $('#scoreDiag').html(0);
-
-            // Add rows and columns from items
-            content = ""
-            var count = 0
-            for (var row = 0; row < this.dim; row++) {
-                content += "<tr>\n"                
-                for (var col = 0; col < this.dim; col++) {
-                    content += '<td id="cell' + count + '" data-name="cell' + count + '" class="' + this.itemClass + '"></td>\n'
-                    count += 1
-                } 
-                content += "</tr>\n"  
-            }
-
-            $(this.cardId).html(content)
-
-            // Bind a change event to each added item
-            $("." + this.itemClass).on('click', {client: this}, this.selectItemEvent);
-            this.bingoCheck()
+            this.resetCounters()
         }
+
+        // Add rows and columns from items
+        this.drawBoard()
+        this.bingoCheck()
 
         console.log(this.items.board);
 
@@ -234,20 +258,6 @@ class Bingo {
         for (i = 0; i < items_needed; i++) {
             var squareName = "Box" + i;
             $('#cell'+i).html(this.items.board[i]).attr('title', this.items.board[i]);
-        }
-    }
-
-    // Storage save methods
-    storageSave(items) {
-        var items = items || this.items
-        if (this.hasStorage == true) {
-           localStorage.setItem('remote-bingo', JSON.stringify(items));
-        }
-    }
-
-    storageClear() {
-        if (this.hasStorage == true) {
-           localStorage.clear();    
         }
     }
 
@@ -262,6 +272,10 @@ class Bingo {
             }
         }
         return true
+    }
+
+    basename(path) {
+        return path.split('/').reverse()[0];
     }
 
     // Get arrays for each diagonal in the matrix
@@ -309,14 +323,8 @@ class Bingo {
                 rowArray.push("cell"+idx)
             }
 
-            console.log("ROW ARRAY")
-            console.log(rowArray)
-            console.log("SELECTED")
-            console.log(this.items.selected)
-
             // If all of a row's cells are selected (and if row is not added) add it
             if (this.containsAll(rowArray, this.items.selected)) {
-                console.log("YES")
                 if ($.inArray("row"+i, this.items.bingoRow) == -1) {
                     this.items.bingoRow.push("row"+i);
                     $('#scoreRow').html(this.items.bingoRow.length);
@@ -337,10 +345,8 @@ class Bingo {
 
             // Generate the column index
             var colArray = Array()
-            var count = 1;
-            for (idx=i; idx<this.dim; idx++){
-                colArray.push("cell"+(idx*(count * this.dim)))
-                count+=1
+            for (var j=0; j<this.dim; j++){
+                colArray.push("cell"+ (i+j*this.dim))
             }
 
            // If all of a column's cells are selected, and the column isn't already in the bingo array, add it
@@ -378,39 +384,7 @@ class Bingo {
 
        // Check for a full bingo of all 12 row/column/diagonal combinations
        if ((this.items.bingoRow.length == this.dim) && (this.items.bingoCol.length == this.dim) && (this.items.bingoDiag.length == 2)) {
-           $.notify("CONGRATULATIONS - you're a WINNER!", "info");
+           $.notify("CONGRATULATIONS - you're a WINNER!", "success");
        }
-    }
-
-    // Load previous suggestions and seen items
-    // TODO NEEDS TO UPDATE
-    storageLoad() {
-
-        console.log('Loading items from storage...')
-        var items = JSON.parse(localStorage.getItem('human-menu'));
-
-        if (items != null) {
-
-            // The user has previous suggestions or seen items
-            if ("suggestions" in items) {
-
-                // Add items that aren't found in either, for each of suggestions and seen
-                for (var i = 0; i < items.suggestions.length; i++) {
-                    var item = items.suggestions[i]
-                    if ( !(this.items.suggestions.includes(item)) && !(this.items.done.includes(item))) {
-                        this.items.suggestions.push(item)
-                    }
-                }
-            }
-            if ("done" in items) {
-                for (var i = 0; i < items.done.length; i++) {
-                    var item = items.done[i]
-                    if ( !(this.items.suggestions.includes(item)) && !(this.items.done.includes(item))) {
-                        this.items.done.push(item)
-                    }
-                }
-            }
-
-        }
     }
 }

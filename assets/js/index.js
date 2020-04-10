@@ -3,12 +3,7 @@ $(document).ready(function() {
 
     var bingo = new Bingo()
     bingo.load_csv("remote-bingo.csv")
-
-    // Function to add a new item
-    $("#addButton").click(function(){
-        var name = $("#newItem").val();
-        menu.addItem(name);
-        $.notify("Added new item " + name + " to suggestions.", "info");
-    })
+    // under development, adding a custom list
+    //bingo.add_bingo_list("bingo-lists/new-programmer.csv")
 
 });
