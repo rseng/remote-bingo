@@ -3,7 +3,7 @@ $(document).ready(function() {
 
     var bingo = new Bingo()
     bingo.load_csv("remote-bingo.csv")
-    // under development, adding a custom list
-    //bingo.add_bingo_list("bingo-lists/new-programmer.csv")
-
+    bingo.add_bingo_list("bingo-lists/new-programmer.csv")
+    bingo.add_bingo_list("bingo-lists/quarantine-cooking.csv")
+    bingo.add_bingo_list("bingo-lists/indoor-activities.csv")
 });

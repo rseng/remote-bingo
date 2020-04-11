@@ -83,23 +83,30 @@ class Bingo {
         client.bingoCheck()
     }
 
-    // STOPPED HERE - need to update the client from the event and save state
     // Reload the board
-    //changeBoardEvent(event) {
-    //    var filename = $(event.target).children("option:selected").val();
-    //    console.log(filename)
-    //    var client = event.data.client
-    //    client.items.all = Array()
-    //    client.load_csv(filename)
-    //    console.log(client.items.all)
-    //    client.reset(event, client.items.all)
-    //}
+    changeBoardEvent(event) {
+        var filename = $(event.target).children("option:selected").val();
+
+        if (filename != "---") {
+            var client = event.data.client
+            client.items.all = Array()
+            client.load_csv(filename)
+            client.items.board = Array()
+            client.items.selected = Array()
+
+            // Bingo row, column, and diagonal indexes
+           client.items.bingoRow = Array()
+           client.items.bingoCol = Array()
+           client.items.bingoDiag = Array()
+           client.resetCounters()
+        }
+    }
 
     // Add a new bingo list to options
-    //add_bingo_list(filename) {
-    //    this.bingoLists.push(filename)
-    //    //this.drawSelect()
-    //}
+    add_bingo_list(filename) {
+        this.bingoLists.push(filename)
+        this.drawSelect()
+    }
 
     // Load suggestions into the csv
     load_csv(filename) {
@@ -141,10 +148,9 @@ class Bingo {
     }
 
     // Reset Bingo and provide new board
-    reset(event, items) {
+    reset(event) {
 
         var client = event.data.client
-        var items = items || client.items.all
 
         $(client.cardId).empty();
         client.items.board = Array()
@@ -154,7 +160,7 @@ class Bingo {
         client.items.bingoRow = Array()
         client.items.bingoCol = Array()
         client.items.bingoDiag = Array()
-        client.items.all = client.shuffle(items)
+        client.items.all = client.shuffle(client.items.all)
         client.resetCounters()
         client.update()
 
@@ -209,7 +215,8 @@ class Bingo {
         content += "</select>\n"  
         $(this.selectId).html(content)
         $(this.selectId).on('change', {client: this}, this.changeBoardEvent);
-
+        console.log("AFTER EVENT")
+        console.log(this.items.all)
     }
 
 
@@ -354,7 +361,7 @@ class Bingo {
                if ($.inArray("col"+i, this.items.bingoCol) == -1) {
                    this.items.bingoCol.push("col"+i);
                    $('#scoreCol').html(this.items.bingoCol.length);
-                   $.notify("You scored a column! Keep it up!", "info");
+                   $.notify("You scored a column! Keep it up!", "primary");
                }
  
            // Otherwise if a column cells aren't selected (and it's in bingo array) remove it
@@ -372,7 +379,7 @@ class Bingo {
                if ($.inArray(diagName, this.items.bingoDiag) == -1) {
                    this.items.bingoDiag.push(diagName);
                    $('#scoreDiag').html(this.items.bingoDiag.length);
-                   $.notify("Bingo! You scored a diagonal! Nice moves!", "info");
+                   $.notify("Bingo! You scored a diagonal! Nice moves!", "warning");
                }
            } else {
                 if ($.inArray(diagName, this.items.bingoDiag) !== -1) {

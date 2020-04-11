@@ -241,7 +241,7 @@ h1 {
 
 #menu {
   position: relative;
-  left: 560px;
+  left: 580px;
   width: 100px;
   height: 540px;
   padding-top: 0px;
@@ -277,55 +277,6 @@ h1 {
   -webkit-transition-duration: 0.25s;
   transition-duration: 0.25s;
 }
-#menu #palette {
-  margin-top: 10px;
-  height: 220px;
-  background: rgba(34, 34, 34, 0.6);
-  font: 12px/28px roboto;
-  text-align: center;
-  color: white;
-}
-
-#menu #palette .dabSelect {
-  float: left;
-  border-radius: 24px;
-  margin: 0 0 4px 4px;
-  height: 44px;
-  width: 44px;
-  vertical-align: top;
-}
-#menu #palette .dabSelect:hover {
-  border: 3px solid #FFF;
-}
-#menu #palette #dabRed {
-  background: #FF0000;
-}
-#menu #palette #dabBlue {
-  background: #0000FF;
-}
-#menu #palette #dabYellow {
-  background: #E6E607;
-}
-#menu #palette #dabGreen {
-  background: #008000;
-}
-#menu #palette #dabPurple {
-  background: #800080;
-}
-#menu #palette #dabOrange {
-  background: #FFA500;
-}
-#menu #palette #dabBlack {
-  background: #000000;
-}
-#menu #palette #dabRandom {
-  background: #FFFFFF;
-  font: 20px roboto;
-}
-#menu #palette .dabActive {
-  border: 3px solid #AAA;
-}
-
 
 /* Custom Select */
 
