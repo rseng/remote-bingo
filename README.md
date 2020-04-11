@@ -98,3 +98,9 @@ and variety for playing different boards.
 ### Quarantine Cooking
 
 ![img/quarantine-cooking.png](img/quarantine-cooking.png)
+
+## Thank you!
+
+Thank you to [A Game of Dabs](https://codepen.io/nbrombal/pen/JAedG) on Codepen
+that I was able to refactor into a Vue.js application to serve a custom board.
+I'm terrible at JavaScript and this example was exactly what I needed to get started.
