@@ -87,6 +87,22 @@ If you'd like to contribute, here are a few ideas:
 Please open a PR to update and improve these lists! More items mean better randomization
 and variety for playing different boards.
 
+### Remote Bingo
+
+The default "remote bingo" includes items that are related to working remotely,
+COVID-19, and general conference calls.
+
+![img/remote-bingo.png](img/remote-bingo.png)
+
+### Quarantine Cooking
+
+![img/quarantine-cooking.png](img/quarantine-cooking.png)
+
+
+### Virtual Conference
+
+![img/virtual-conference.png](img/virtual-conference.png)
+
 ### Indoor Activities
 
 ![img/indoor-activities.png](img/indoor-activities.png)
@@ -95,9 +111,6 @@ and variety for playing different boards.
 
 ![img/new-programmer.png](img/new-programmer.png)
 
-### Quarantine Cooking
-
-![img/quarantine-cooking.png](img/quarantine-cooking.png)
 
 ## Thank you!
 
