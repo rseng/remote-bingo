@@ -16,6 +16,9 @@ the items via the [remote-bingo.csv](remote-bingo.csv) file.
  - [Contributing](#contributing)
 
 
+And see [this post](https://vsoch.github.io/2020/remote-bingo/#bingo-lists) for a writeup
+about the development of this interface.
+
 ## Usage
 
 Generally, you get a bingo notification when you:
@@ -110,6 +113,10 @@ COVID-19, and general conference calls.
 ### New Programmer
 
 ![img/new-programmer.png](img/new-programmer.png)
+
+### Cookies
+
+![img/cookies.png](img/cookies.png)
 
 
 ## Thank you!
