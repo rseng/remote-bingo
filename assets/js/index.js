@@ -7,5 +7,6 @@ $(document).ready(function() {
     bingo.add_bingo_list("bingo-lists/quarantine-cooking.csv")
     bingo.add_bingo_list("bingo-lists/indoor-activities.csv")
     bingo.add_bingo_list("bingo-lists/virtual-conference.csv")
+    bingo.add_bingo_list("bingo-lists/cookies.csv")
 
 });
