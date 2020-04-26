@@ -85,6 +85,8 @@ If you'd like to contribute, here are a few ideas:
  - filling the entire board should have a more explosive congratulations [#5](https://github.com/rseng/remote-bingo/issues/5)
  - ability to save picture of board to file [#6](https://github.com/rseng/remote-bingo/issues/6)
 
+This software is under a permissive [MIT License](LICENSE).
+
 ## Boards Available
 
 Please open a PR to update and improve these lists! More items mean better randomization

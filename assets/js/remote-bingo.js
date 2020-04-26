@@ -1,4 +1,8 @@
+
 class Bingo {
+
+    // Copyright © 2020 Vanessa Sochat MIT License
+    // See github.com/rseng/remote-bingo for full license
 
     // Keep record of all items, board, and selected items for cache
     items = {
