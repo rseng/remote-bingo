@@ -121,8 +121,23 @@ COVID-19, and general conference calls.
 ![img/cookies.png](img/cookies.png)
 
 
+### Crypto Privacy
+
+Thanks to [bcrypt](https://twitter.com/bcrypt/status/1286763370213859328) on Twitter for these card entries!
+
+![img/crypto-privacy.png](img/crypto-privacy.png)
+
+### Developer
+
+Thanks to [Kat Maddox](https://twitter.com/ctrlshifti/status/1285733114615037953) for creating this original
+card on Twitter!
+
+![img/developer.png](img/developer.png)
+
+
 ## Thank you!
 
 Thank you to [A Game of Dabs](https://codepen.io/nbrombal/pen/JAedG) on Codepen
 that I was able to refactor into a Vue.js application to serve a custom board.
-I'm terrible at JavaScript and this example was exactly what I needed to get started.
+I'm terrible at JavaScript and this example was exactly what I needed to get started. If you
+would like to add a board or items for a category, please don't hesitate to open a pull request.

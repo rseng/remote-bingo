@@ -3,46 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>Remote Bingo</title>
-    <link rel="stylesheet" href="assets/css/style.css">  
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">  
 </head>
 
 <body>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <h1 class="page-title">Remote Bingo</h1>
-
     <div class="top-right">
         <a href="https://www.github.com/rseng/remote-bingo" target="_blank">
            <i style='color:white'class="fa fa-2x fa-github"></i></a>
     </div>
-    <div class="container" style="height:600px;">
-<div id="wrapper">
-  <table id="card">
-   <!--rows and columns will be added here-->
-  </table>
-  <div id="menu">
-    <div id="scoreboard">
-      <p class="title">ROWS</p>
-      <p class="score"><span id="scoreRow">0</span>/5</p>
-      <p class="title">COLUMNS</p>
-      <p class="score"><span id="scoreCol">0</span>/5</p>
-      <p class="title">DIAGONALS</p>
-      <p class="score"><span id="scoreDiag">0</span>/2</p>
+
+<div class="container">
+  <div class="row" style="padding-top:100px">
+    <div class="col-md-3">
+      <div id="menu">
+        <div id="scoreboard">
+          <p class="title">ROWS</p>
+          <p class="score"><span id="scoreRow">0</span>/5</p>
+          <p class="title">COLUMNS</p>
+          <p class="score"><span id="scoreCol">0</span>/5</p>
+          <p class="title">DIAGONALS</p>
+          <p class="score"><span id="scoreDiag">0</span>/2</p>
+        </div>
+        <button class="cardFunction" id="newCard">NEW CARD</button><br>
+        <button class="cardFunction" id="cleanCard">CLEAR</button>
+
+        <div style="color:white; padding-top:30px;">Choose a bingo board!</div>
+        <div id="selectList" style="width:200px; padding-bottom:30px"></div>
+      </div>
+     </div>
+    <div class="col-md-9">
+      <table id="card" class="board">
+      <!--rows and columns will be added here-->
+      </table>
     </div>
-    <button class="cardFunction" id="newCard">NEW CARD</button>
-    <button class="cardFunction" id="cleanCard">CLEAR</button>
-    </div>
-  </div>  
+  </div>
 </div>
-<div class="container"> <span style="float:right">Choose a bingo board!</span>
-    <div id="selectList" style="width:200px;">
-    </div>
-</div>
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script  src="assets/js/remote-bingo.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
-    <script  src="assets/js/index.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script  src="assets/js/remote-bingo.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
+<script  src="assets/js/index.js"></script>
 </body>
 </html>
